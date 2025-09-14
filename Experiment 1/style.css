@@ -1,0 +1,305 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f8f9fa;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+main {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+#top {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: #fff;
+    border-bottom: 1px solid #e9ecef;
+}
+
+#top h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+#top p {
+    font-size: 1.1rem;
+    color: #6c757d;
+    font-weight: 400;
+}
+
+#importantLinks {
+    background: #fff;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.anchors {
+    text-align: center;
+    font-size: 1rem;
+}
+
+.anchors a {
+    color: #495057;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    margin: 0 0.25rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.anchors a:hover {
+    background-color: #f8f9fa;
+    color: #2c3e50;
+}
+
+section {
+    padding: 2rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+section:last-child {
+    border-bottom: none;
+}
+
+h2 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e9ecef;
+}
+
+#about p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: #495057;
+    line-height: 1.7;
+}
+
+#skills ul {
+    list-style: none;
+    display: grid;
+    gap: 0.75rem;
+}
+
+#skills ul li {
+    background: #f8f9fa;
+    color: #495057;
+    padding: 1rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    border-left: 3px solid #6c757d;
+    transition: border-color 0.2s ease;
+}
+
+#skills ul li:hover {
+    border-left-color: #495057;
+}
+
+#projects ol {
+    list-style: decimal;
+    margin-left: 1.5rem;
+}
+
+#projects ol li {
+    margin-bottom: 1.5rem;
+    padding: 1rem 0;
+    line-height: 1.6;
+}
+
+#projects ol li strong {
+    color: #2c3e50;
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+#projects ol li br {
+    line-height: 1.4;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid #dee2e6;
+}
+
+thead tr td {
+    background: #f8f9fa;
+    color: #495057;
+    padding: 1rem;
+    font-weight: 600;
+    text-align: center;
+    border-right: 1px solid #dee2e6;
+}
+
+thead tr td:last-child {
+    border-right: none;
+}
+
+tbody tr td {
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 1px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+}
+
+tbody tr td:last-child {
+    border-right: none;
+}
+
+tbody tr:hover {
+    background: #f8f9fa;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+#contact {
+    background: #fff;
+}
+
+form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #495057;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    color: #495057;
+    transition: border-color 0.2s ease;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+    outline: none;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+button {
+    background: #495057;
+    color: white;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background: #343a40;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background: #dee2e6;
+    margin: 0;
+}
+
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-top: 2rem;
+    border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+    
+    #top {
+        padding: 2rem 1rem;
+    }
+    
+    #top h1 {
+        font-size: 2rem;
+    }
+    
+    section {
+        padding: 1.5rem;
+    }
+    
+    h2 {
+        font-size: 1.6rem;
+    }
+    
+    .anchors a {
+        margin: 0.2rem;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+    }
+    
+    table {
+        font-size: 0.85rem;
+    }
+    
+    thead tr td,
+    tbody tr td {
+        padding: 0.75rem 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #top h1 {
+        font-size: 1.8rem;
+    }
+    
+    .anchors a {
+        display: block;
+        margin: 0.2rem 0;
+        text-align: center;
+    }
+    
+    #projects ol {
+        margin-left: 1rem;
+    }
+    
+    form {
+        padding: 0;
+    }
+}
