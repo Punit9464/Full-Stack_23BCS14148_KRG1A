@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+.label {
+    @apply px-2
+}
+
+td {
+    @apply px-2
+}
