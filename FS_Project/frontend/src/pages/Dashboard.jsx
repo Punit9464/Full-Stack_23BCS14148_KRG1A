@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
 import { cpp } from '@codemirror/lang-cpp';
@@ -79,20 +79,58 @@ export default function Dashboard() {
   const [report, setReport] = useState(null);
   const [showTime, setShowTime] = useState(true);
   const [language, setLanguage] = useState(javascript());
+  const [toastVisible, setToastVisible] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const toastTimer = useRef(null);
 
   useEffect(() => {
     const detected = detectLanguage(code);
     if (detected === 'cpp') setLanguage(cpp());
     else if (detected === 'python') setLanguage(python());
-    else setLanguage(java());
+    else setLanguage(javascript()); // fixed fallback to javascript
   }, [code]);
 
-  const handleAnalyze = () => {
+  const handleAnalyze = async () => {
+    // Validate input
+    if (!code || !code.trim()) {
+      setToastMessage('Please enter code before analyzing.');
+      setToastVisible(true);
+      clearTimeout(toastTimer.current);
+      toastTimer.current = setTimeout(() => { setToastVisible(false); setToastMessage(''); }, 3000);
+      return;
+    }
+
     setLoading(true);
-    setTimeout(() => {
+    setReport(null);
+    try {
+      const res = await fetch('http://localhost:8080/api/v1/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code, language: detectLanguage(code) }),
+      });
+      if (!res.ok) {
+        const txt = await res.text();
+        throw new Error(txt || `HTTP ${res.status}`);
+      }
+      const data = await res.json();
+      // Basic response validation
+      if (!data || !data.timeComplexity || !Array.isArray(data.timeGraph) || !Array.isArray(data.spaceGraph)) {
+        setToastMessage('Unexpected response from server.');
+        setToastVisible(true);
+        clearTimeout(toastTimer.current);
+        toastTimer.current = setTimeout(() => { setToastVisible(false); setToastMessage(''); }, 3000);
+        return;
+      }
+      setReport(data);
+    } catch (err) {
+      console.error(err);
+      setToastMessage('Analyze failed: ' + (err.message || 'unknown error'));
+      setToastVisible(true);
+      clearTimeout(toastTimer.current);
+      toastTimer.current = setTimeout(() => { setToastVisible(false); setToastMessage(''); }, 5000);
+    } finally {
       setLoading(false);
-      setReport(mockReport);
-    }, 2000);
+    }
   };
 
   const chartOptions = (yLabel) => ({
@@ -125,9 +163,10 @@ export default function Dashboard() {
         <div className="mt-4 flex justify-between items-center">
           <button
             onClick={handleAnalyze}
-            className="bg-lavender-400 text-gray-900 font-semibold px-4 py-2 rounded-lg hover:bg-lavender-300 transition"
+            disabled={loading}
+            className={`font-semibold px-4 py-2 rounded-lg transition ${loading ? 'bg-gray-600 text-gray-300 cursor-not-allowed' : 'bg-lavender-400 text-gray-900 hover:bg-lavender-300'}`}
           >
-            Analyze Code
+            {loading ? 'Analyzing...' : 'Analyze Code'}
           </button>
 
           {/* Link to Debugger */}
@@ -237,6 +276,11 @@ export default function Dashboard() {
           </motion.div>
         )}
       </AnimatePresence>
+      {toastVisible && (
+        <div className="fixed bottom-6 right-6 bg-lavender-400 text-gray-900 px-4 py-2 rounded-lg shadow-lg">
+          {toastMessage}
+        </div>
+      )}
     </div>
   );
 }
