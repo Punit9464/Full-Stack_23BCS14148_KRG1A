@@ -15,7 +15,7 @@ export default function ProductCard(props) {
     if(!props.img["src"] || !props.img['alt']) console.error("Missing image attributes");
 
   return (
-    <Card className='mt-5 ml-10' sx={{ maxWidth: 345 }}>
+    <Card className="mt-5 ml-10 transform transition-transform duration-300 ease-in-out hover:scale-105" sx={{ maxWidth: 345 }}>
       <CardMedia
         component="img"
         alt={props.img.alt}
